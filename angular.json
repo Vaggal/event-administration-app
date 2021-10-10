@@ -20,19 +20,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/client",
+            "outputPath": "dist/public",
             "index": "client/src/index.html",
             "main": "client/src/main.ts",
             "polyfills": "client/src/polyfills.ts",
             "tsConfig": "client/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "client/src/favicon.ico",
-              "client/src/assets"
-            ],
-            "styles": [
-              "client/src/styles.scss"
-            ],
+            "assets": ["client/src/favicon.ico", "client/src/assets"],
+            "styles": ["client/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -94,13 +89,8 @@
             "tsConfig": "client/tsconfig.spec.json",
             "karmaConfig": "client/karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "client/src/favicon.ico",
-              "client/src/assets"
-            ],
-            "styles": [
-              "client/src/styles.scss"
-            ],
+            "assets": ["client/src/favicon.ico", "client/src/assets"],
+            "styles": ["client/src/styles.scss"],
             "scripts": []
           }
         }
