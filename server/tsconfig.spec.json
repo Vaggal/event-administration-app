@@ -6,5 +6,5 @@
     "types": ["jest"]
   },
   "files": [],
-  "include": ["./src/**/*.spec.ts", "./src/**/*.d.ts"]
+  "include": ["./**/*.spec.ts", "./**/*.d.ts"]
 }
