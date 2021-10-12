@@ -10,5 +10,6 @@
     "types": ["node"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
-  }
+  },
+  "exclude": ["jest.config.ts", "**/*.spec.ts"]
 }
