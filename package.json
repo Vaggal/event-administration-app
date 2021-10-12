@@ -1,23 +1,26 @@
 {
   "name": "event-administration-app",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "lint": "ng lint",
+    "format": "prettier --write .",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:server": "jest ./server",
     "test:client": "jest ./client",
+    "test:e2e": "ng e2e",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
     "clean": "rm -rf ./dist/api && rm -rf ./dist/public/",
     "cp:www": "mkdir .\\dist\\api\\bin && cp .\\server\\bin\\www .\\dist\\api\\bin\\",
-    "dev": "concurrently -k \"tsc -p ./server/tsconfig.api.json -w\" \"cd ./dist/api && nodemon -r ./bin/www --watch\" \"ng build --watch\"",
-    "lint": "ng lint",
-    "format": "prettier --write .",
-    "e2e": "ng e2e",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "dev": "concurrently -k \"tsc -p ./server/tsconfig.api.json -w\" \"cd ./dist/api && nodemon -r ./bin/www --watch\" \"ng build --watch\""
+  },
+  "engines": {
+    "node": "^12 || ^14",
+    "npm": "^6"
   },
   "private": true,
   "dependencies": {
