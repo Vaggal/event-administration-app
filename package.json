@@ -15,7 +15,7 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "clean": "rm -rf ./dist/api && rm -rf ./dist/public/",
-    "cp:www": "mkdir .\\dist\\api\\bin && cp .\\server\\bin\\www .\\dist\\api\\bin\\"
+    "cp:www": "mkdirp ./dist/api/bin && cp ./server/bin/www ./dist/api/bin/"
   },
   "engines": {
     "node": "^12 || ^14",
@@ -58,6 +58,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.2.5",
     "jest-preset-angular": "^10.0.1",
+    "mkdirp": "^1.0.4",
     "nodemon": "^2.0.13",
     "prettier": "^2.4.1",
     "supertest": "^6.1.6",
