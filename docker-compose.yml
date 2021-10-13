@@ -1,21 +1,22 @@
 version: "3.7"
 
 services:
-  server:
+  app:
     container_name: event-administration-app
-    image: node:14-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile
     working_dir: /app
     volumes:
       - ./:/app
     ports:
       - 3000:3000
-      - 4200:4200
     depends_on:
       - mongo
     environment:
       MONGO_HOST: mongo
     command: >
-      sh -c "npm install && npm run delete:lockfile && npm run build && npm run server:serve"
+      sh -c "npm run delete:lockfile && npm run build && npm run server:run"
 
   mongo:
     image: mongo

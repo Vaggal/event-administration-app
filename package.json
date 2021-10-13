@@ -17,7 +17,8 @@
     "clean": "rm -rf ./dist/api && rm -rf ./dist/public/",
     "cp:www": "mkdirp ./dist/api/bin && cp ./server/bin/www ./dist/api/bin/",
     "delete:lockfile": "rm -f ./node_modules/@angular/compiler-cli/ngcc/ngcc_lock_file_",
-    "server:run": "node ./dist/api/bin/www"
+    "server:run": "node ./dist/api/bin/www",
+    "docker:serve": "ng serve --host 0.0.0.0 --poll 1000"
   },
   "engines": {
     "node": "^12 || ^14",
