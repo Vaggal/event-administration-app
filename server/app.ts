@@ -1,17 +1,25 @@
 import * as express from 'express';
 import * as path from 'path';
-import { Express, Request, Response } from 'express';
+import { Express } from 'express';
+
+import eventsRouter from './routes/events';
+
+import { DB_STRING, connectToDB } from './db';
 
 export default function createApp(): Express {
+  console.log(`Connecting to DB... ${DB_STRING}`);
+
   const app = express();
+  app.use(express.json());
 
   const clientDir = path.join(__dirname, '../public');
   app.use(express.static(clientDir));
 
-  app.get('/api/:name', async (req: Request, res: Response) => {
-    const name = req.params.name;
-    const greeting = { greeting: `Hello, ${name}` };
-    res.send(greeting);
-  });
+  connectToDB()
+    .then(() => {
+      app.use('/api/events', eventsRouter);
+    })
+    .catch(console.error);
+
   return app;
 }
