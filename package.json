@@ -3,8 +3,6 @@
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "start": "concurrently -k \"tsc -p ./server/tsconfig.api.json -w\" \"nodemon -r ./dist/api/bin/www --watch\" \"ng serve\"",
-    "build": "npm run clean && npm run cp:www && tsc -p ./server/tsconfig.api.json && ng build",
     "lint": "ng lint",
     "format": "prettier --write .",
     "test": "jest",
@@ -12,13 +10,15 @@
     "test:server": "jest ./server",
     "test:client": "jest ./client",
     "test:e2e": "ng e2e",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run",
+    "test:e2e:open": "cypress open",
     "clean": "rm -rf ./dist/api && rm -rf ./dist/public/",
     "cp:www": "mkdirp ./dist/api/bin && cp ./server/bin/www ./dist/api/bin/",
     "delete:lockfile": "rm -f ./node_modules/@angular/compiler-cli/ngcc/ngcc_lock_file_",
-    "server:run": "node ./dist/api/bin/www",
-    "docker:serve": "ng serve --host 0.0.0.0 --poll 1000"
+    "docker:serve": "ng serve --host 0.0.0.0 --poll 1000",
+    "dev": "npm run delete:lockfile && npm run clean && npm run cp:www && tsc -p ./server/tsconfig.api.json && concurrently -k \"tsc -p ./server/tsconfig.api.json -w\" \"nodemon -r ./dist/api/bin/www --watch\" \"ng build --watch --poll 1000\"",
+    "dev:server": "concurrently -k \"tsc -p ./server/tsconfig.api.json -w\" \"nodemon -r ./dist/api/bin/www --watch\"",
+    "build": "npm run clean && npm run cp:www && tsc -p ./server/tsconfig.api.json && ng build",
+    "server": "node ./dist/api/bin/www"
   },
   "engines": {
     "node": "^12 || ^14",

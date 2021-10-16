@@ -6,4 +6,4 @@ services:
       - 4200:4200
       - 49153:49153
     command: >
-      sh -c "npm run docker:serve"
+      sh -c "npm run dev"

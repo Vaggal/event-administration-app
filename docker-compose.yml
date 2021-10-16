@@ -15,9 +15,22 @@ services:
       - mongo
     environment:
       MONGO_HOST: mongo
+      MONGO_PORT: 27017
+      MONGO_USER: test
+      MONGO_PASS: testpass
     command: >
-      sh -c "npm run delete:lockfile && npm run build && npm run server:run"
+      sh -c "npm run delete:lockfile && npm run build && npm run server"
 
   mongo:
     image: mongo
+    container_name: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: adminpass
+      MONGO_INITDB_DATABASE: eventsDB
     command: mongod --quiet --logpath /dev/null
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
