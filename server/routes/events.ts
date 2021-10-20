@@ -1,28 +1,51 @@
-import { Router, Request, Response } from 'express';
-
-import EventModel from '../models/event';
+import { Router } from 'express';
+import { getAllEvents, getEventWithId, createEvent, updateEventWithId, deleteEventWithId } from '../controllers/events';
+import { body, param } from 'express-validator';
 
 const router = Router();
 
-router.get('/', async (req: Request, res: Response) => {
-  const events = await EventModel.find({});
-  res.json(events);
-});
-router.get('/:id', async (req: Request, res: Response) => {
-  const event = await EventModel.findById(req.params.id);
-  res.json(event);
-});
-router.post('/', async (req: Request, res: Response) => {
-  const event = await EventModel.findById('test');
-  res.json(event);
-});
-router.put('/:id', async (req: Request, res: Response) => {
-  const event = await EventModel.findByIdAndUpdate(req.params.id, req.body);
-  res.json(event);
-});
-router.delete('/:id', async (req: Request, res: Response) => {
-  const event = await EventModel.findByIdAndDelete(req.params.id);
-  res.json(event);
-});
+router.get('/', getAllEvents);
+
+router.get(
+  '/:id',
+  param('id').isLength({
+    min: 24,
+    max: 24,
+  }),
+  getEventWithId
+);
+
+router.post(
+  '/',
+  body('organizer').isString(),
+  body('title').isString(),
+  body('description').isString(),
+  body('location').isObject(),
+  body('date').isISO8601(),
+  createEvent
+);
+
+router.put(
+  '/:id',
+  param('id').isLength({
+    min: 24,
+    max: 24,
+  }),
+  body('title').isString(),
+  body('organizer').isString(),
+  body('description').isString(),
+  body('location').isObject(),
+  body('date').isISO8601(),
+  updateEventWithId
+);
+
+router.delete(
+  '/:id',
+  param('id').isLength({
+    min: 24,
+    max: 24,
+  }),
+  deleteEventWithId
+);
 
 export default router;
