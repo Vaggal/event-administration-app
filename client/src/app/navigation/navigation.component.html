@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+  <span mat-button routerLink="/">Event Management App</span>
+  <span class="app-spacer"></span>
+  <ng-container *ngIf="isSmallScreen">
+    <button mat-icon-button [matMenuTriggerFor]="dropMenu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #dropMenu="matMenu">
+      <a mat-menu-item class="menu-button" routerLink="/">Home</a>
+      <a mat-menu-item class="menu-button" routerLink="/events">Events</a>
+    </mat-menu>
+  </ng-container>
+  <ng-container *ngIf="!isSmallScreen">
+    <a mat-button class="menu-button" routerLink="/">Home</a>
+    <mat-divider [vertical]="true" class="mat-divider-vertical"></mat-divider>
+    <a mat-button class="menu-button" routerLink="/events">Events</a>
+  </ng-container>
+</mat-toolbar>
