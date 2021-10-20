@@ -11,9 +11,10 @@ import { MaterialModule } from './material.module';
 import { HomeComponent } from './home/home.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { EventsComponent } from './events/events.component';
+import { EventComponent } from './event/event.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NavigationComponent, EventsComponent],
+  declarations: [AppComponent, HomeComponent, NavigationComponent, EventsComponent, EventComponent],
   imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule, BrowserAnimationsModule, MaterialModule, FlexLayoutModule],
   providers: [],
   bootstrap: [AppComponent],

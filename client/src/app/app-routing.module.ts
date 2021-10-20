@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EventsResolver } from './events.resolver';
 import { EventsComponent } from './events/events.component';
 import { HomeComponent } from './home/home.component';
 
@@ -11,6 +12,9 @@ const routes: Routes = [
   {
     path: 'events',
     component: EventsComponent,
+    resolve: {
+      events: EventsResolver,
+    },
   },
 ];
 
