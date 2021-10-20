@@ -1,3 +1,15 @@
-<div fxLayout="row" fxLayoutAlign="space-around start">
-  <app-event *ngFor="let event of events" class="app-event"></app-event>
+<div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="1%">
+  <app-event
+    fxFlex="24"
+    fxFlex.lt-sm="48"
+    *ngFor="let event of events"
+    class="app-event"
+    [id]="event.id"
+    [title]="event.title"
+    [description]="event.description"
+    [organizer]="event.organizer"
+    [location]="event.location"
+    [date]="event.date"
+  ></app-event>
 </div>
+<router-outlet></router-outlet>
