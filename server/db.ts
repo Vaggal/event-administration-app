@@ -8,7 +8,7 @@ const mongoHost = process.env.MONGO_HOST || 'localhost';
 const auth = user ? `${user}:${password}@` : '';
 const DB_STRING = `mongodb://${auth}${mongoHost}:${mongoPort}/eventsDB`;
 
-const config = { useNewUrlParser: true, useUnifiedTopology: true, authSource: 'eventsDB' };
+const config = { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, authSource: 'eventsDB' };
 
 const connectToDB = (): Promise<typeof import('mongoose')> => {
   return connect(DB_STRING, config);
