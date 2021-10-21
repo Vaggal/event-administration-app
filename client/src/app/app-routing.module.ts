@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EventDetailsComponent } from './event-details/event-details.component';
+import { EventDetailsEntryComponent } from './event-details/event-details.component';
 import { EventsResolver } from './events.resolver';
 import { EventsComponent } from './events/events.component';
 import { HomeComponent } from './home/home.component';
@@ -22,7 +22,7 @@ const routes: Routes = [
     children: [
       {
         path: ':id',
-        component: EventDetailsComponent,
+        component: EventDetailsEntryComponent,
         resolve: {
           event: EventsResolver,
         },
@@ -35,7 +35,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -6,8 +6,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { LayoutModule } from '@angular/cdk/layout';
 
 const modules: any = [
@@ -20,10 +21,18 @@ const modules: any = [
   MatCardModule,
   MatDialogModule,
   MatFormFieldModule,
+  MatInputModule,
 ];
 @NgModule({
   declarations: [],
   imports: modules,
   exports: modules,
+  providers: [
+    {
+      provide: MatDialogRef,
+      useValue: {},
+    },
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+  ],
 })
 export class MaterialModule {}

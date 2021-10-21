@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+import { AppEvent } from '../typings';
 
 @Component({
   selector: 'app-event-details',
@@ -15,27 +17,39 @@ export class EventDetailsComponent implements OnInit {
   location!: object;
   date!: Date;
 
-  form!: FormGroup;
-
-  constructor(private route: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(public dialogRef: MatDialogRef<EventDetailsComponent>, @Inject(MAT_DIALOG_DATA) public eventData: AppEvent) {
+    this.id = eventData.id;
+    this.title = eventData.title;
+    this.description = eventData.description;
+    this.organizer = eventData.organizer;
+    this.location = eventData.location;
+    this.date = eventData.date;
+  }
 
   ngOnInit(): void {
+    console.log('test');
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+@Component({
+  template: '',
+})
+export class EventDetailsEntryComponent {
+  constructor(public dialog: MatDialog, private router: Router, private route: ActivatedRoute) {
     this.route.data.subscribe((data) => {
-      this.id = data.event.id;
-      this.title = data.event.title;
-      this.description = data.event.description;
-      this.organizer = data.event.organizer;
-      this.location = data.event.location;
-      this.date = data.event.date;
-      console.log('Event Details with id: ', data);
+      this.openDialog(data.event);
     });
   }
-
-  save() {
-    console.log('save pressed');
-  }
-
-  close() {
-    console.log('close pressed');
+  openDialog(eventData: AppEvent): void {
+    const dialogRef = this.dialog.open(EventDetailsComponent, {
+      data: eventData,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.router.navigate(['../'], { relativeTo: this.route });
+    });
   }
 }
