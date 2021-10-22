@@ -1,13 +1,30 @@
 <h2 mat-dialog-title>Event Details</h2>
 
 <div mat-dialog-content>
-  <mat-form-field appearance="fill">
-    <mat-label>Event title</mat-label>
-    <input matInput [(ngModel)]="title" />
-  </mat-form-field>
+  <form [formGroup]="form" fxLayout="column" fxLayoutGap="1%">
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Organizer</mat-label>
+      <input matInput formControlName="organizer" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" formControlName="description"></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Date</mat-label>
+      <input matInput type="datetime-local" [matDatepicker]="picker" style="display: none" (dateChange)="formatDate($event)" />
+      <input matInput type="datetime-local" formControlName="date" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </form>
 </div>
 
 <div mat-dialog-actions>
   <button mat-raised-button mat-dialog-close>Close</button>
-  <button mat-raised-button color="primary">Save</button>
+  <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="submitForm()">Save</button>
 </div>

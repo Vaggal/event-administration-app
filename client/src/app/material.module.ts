@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
@@ -9,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { LayoutModule } from '@angular/cdk/layout';
 
 const modules: any = [
@@ -22,6 +24,8 @@ const modules: any = [
   MatDialogModule,
   MatFormFieldModule,
   MatInputModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
 ];
 @NgModule({
   declarations: [],
@@ -33,6 +37,7 @@ const modules: any = [
       useValue: {},
     },
     { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatNativeDateModule },
   ],
 })
 export class MaterialModule {}
