@@ -37,6 +37,8 @@ A dockerfile was written that facilitates file copying and npm installation. Sev
 * __docker-compose.dev.yml__ Creates a dev environment which supports hot reloading.
 * __docker-compose.db.yml__ Runs a MongoDB database.
 
+Credentials are stored in environment varialbles in the docker compose files which a security issue but it is only done for the demo purposes. Normally they should either be in docker secrets or as environment variable of the host system.
+
 #### Server
 
 The database configuration exists in db.ts. At the moment it leaks database user credential data which would normally exist on docker. It is done only for the sake of easier local development and taking into consideration the demo nature of the app.
