@@ -15,7 +15,8 @@
     "cp:www": "mkdirp ./dist/api/bin && cp ./server/bin/www ./dist/api/bin/",
     "delete:lockfile": "rm -f ./node_modules/@angular/compiler-cli/ngcc/ngcc_lock_file_",
     "docker:serve": "ng serve --host 0.0.0.0 --poll 1000",
-    "dev": "npm run delete:lockfile && npm run clean && npm run cp:www && tsc -p ./server/tsconfig.api.json && concurrently -k \"tsc -p ./server/tsconfig.api.json -w\" \"nodemon -r ./dist/api/bin/www --watch\" \"ng serve --poll 1000\"",
+    "docker:dev": "npm run delete:lockfile && npm run clean && npm run cp:www && tsc -p ./server/tsconfig.api.json && concurrently -k \"tsc -p ./server/tsconfig.api.json -w\" \"nodemon -r ./dist/api/bin/www --watch\" \"npm run docker:serve\"",
+    "dev": "npm run delete:lockfile && npm run clean && npm run cp:www && tsc -p ./server/tsconfig.api.json && concurrently -k \"tsc -p ./server/tsconfig.api.json -w\" \"nodemon -r ./dist/api/bin/www --watch\" \"ng serve\"",
     "dev:server": "concurrently -k \"tsc -p ./server/tsconfig.api.json -w\" \"nodemon -r ./dist/api/bin/www --watch\"",
     "build": "npm run clean && npm run cp:www && tsc -p ./server/tsconfig.api.json && ng build",
     "server": "node ./dist/api/bin/www"
