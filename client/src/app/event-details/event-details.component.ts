@@ -74,7 +74,7 @@ export class EventDetailsComponent implements OnInit {
       address: [this.address],
     });
 
-    const dateString = this.date.toString().substring(0, 16);
+    const dateString = this.date?.toString().substring(0, 16);
     this.setFormDate(dateString);
 
     this.formInitialValue = this.form.value;
