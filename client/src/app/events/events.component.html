@@ -11,5 +11,10 @@
     [address]="event.address"
     [date]="event.date"
   ></app-event>
+  <div fxLayout="row" fxFlexAlign="center">
+    <button mat-icon-button routerLink="new">
+      <mat-icon class="app-add-button" color="primary">add</mat-icon>
+    </button>
+  </div>
 </div>
 <router-outlet></router-outlet>

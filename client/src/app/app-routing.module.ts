@@ -21,6 +21,10 @@ const routes: Routes = [
     },
     children: [
       {
+        path: 'new',
+        component: EventDetailsEntryComponent,
+      },
+      {
         path: ':id',
         component: EventDetailsEntryComponent,
         resolve: {

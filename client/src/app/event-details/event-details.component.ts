@@ -3,8 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { ActivatedRoute, Router, Params } from '@angular/router';
-
+import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 
 import { AppEvent } from '../typings';
@@ -18,6 +17,8 @@ import { EventsService } from '../events.service';
 export class EventDetailsComponent implements OnInit {
   @ViewChild('autosize') autosize!: CdkTextareaAutosize;
 
+  dialogTitle!: string;
+
   id!: string;
   title!: string;
   description!: string;
@@ -29,6 +30,20 @@ export class EventDetailsComponent implements OnInit {
   formInitialValue!: object;
   formIsChanged: Boolean = false;
 
+  eventsServiceObserver = {
+    next: (response: AppEvent) => {
+      const result = {
+        id: response.id,
+        title: response.title,
+        description: response.description,
+        organizer: response.organizer,
+        address: response.address,
+        date: response.date,
+      };
+      this.dialogRef.close(result);
+    },
+  };
+
   constructor(
     public dialogRef: MatDialogRef<EventDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public eventData: AppEvent,
@@ -36,6 +51,8 @@ export class EventDetailsComponent implements OnInit {
     private ngZone: NgZone,
     private eventsService: EventsService
   ) {
+    this.dialogTitle = eventData.id !== '' ? 'Event details' : 'Create new event';
+
     this.id = eventData.id;
     this.title = eventData.title;
     this.description = eventData.description;
@@ -53,7 +70,7 @@ export class EventDetailsComponent implements OnInit {
       title: [this.title, [Validators.required]],
       organizer: [this.organizer, [Validators.required]],
       description: [this.description],
-      date: [''],
+      date: ['', [Validators.required]],
       address: [this.address],
     });
 
@@ -69,17 +86,13 @@ export class EventDetailsComponent implements OnInit {
 
   submitForm() {
     if (this.formIsChanged) {
-      this.eventsService.updateEventWithId(this.id, this.form.value).subscribe((response) => {
-        const result = {
-          id: response.id,
-          title: response.title,
-          description: response.description,
-          organizer: response.organizer,
-          address: response.address,
-          date: response.date,
-        };
-        this.dialogRef.close(result);
-      });
+      if (this.id === '') {
+        const data = this.form.value;
+        delete data.id;
+        this.eventsService.createEvent(data).subscribe(this.eventsServiceObserver);
+      } else {
+        this.eventsService.updateEventWithId(this.id, this.form.value).subscribe(this.eventsServiceObserver);
+      }
     } else {
       this.dialogRef.close();
     }
@@ -110,10 +123,26 @@ export class EventDetailsComponent implements OnInit {
 })
 export class EventDetailsEntryComponent {
   constructor(public dialog: MatDialog, private router: Router, private route: ActivatedRoute) {
+    let dialogData;
+
     this.route.data.subscribe((data) => {
-      this.openDialog(data.event);
+      if (data.event) {
+        dialogData = data.event;
+      } else {
+        dialogData = {
+          id: '',
+          title: '',
+          description: '',
+          organizer: '',
+          address: '',
+          date: '',
+        };
+      }
+
+      this.openDialog(dialogData);
     });
   }
+
   openDialog(eventData: AppEvent): void {
     const dialogRef = this.dialog.open(EventDetailsComponent, {
       data: eventData,
