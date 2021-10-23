@@ -1,6 +1,7 @@
 module.exports = {
-  preset: 'jest-preset-angular',
-  setupFilesAfterEnv: ['../setup-jest.ts'],
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  coveragePathIgnorePatterns: ['/node_modules/'],
   globals: {
     'ts-jest': {
       diagnostics: {
