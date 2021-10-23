@@ -1,4 +1,4 @@
-import { connect } from 'mongoose';
+import { connect, disconnect } from 'mongoose';
 
 const user = process.env.MONGO_USER || 'test';
 const password = process.env.MONGO_PASS || 'testpass';
@@ -14,4 +14,4 @@ const connectToDB = (): Promise<typeof import('mongoose')> => {
   return connect(DB_STRING, config);
 };
 
-export { DB_STRING, connectToDB };
+export { DB_STRING, connectToDB, disconnect as disconnectFromDB };
