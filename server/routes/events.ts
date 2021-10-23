@@ -20,7 +20,7 @@ router.post(
   body('organizer').isString(),
   body('title').isString(),
   body('description').isString(),
-  body('location').isObject(),
+  body('address').isString(),
   body('date').isISO8601(),
   createEvent
 );
@@ -34,7 +34,7 @@ router.put(
   body('title').isString(),
   body('organizer').isString(),
   body('description').isString(),
-  body('location').isObject(),
+  body('address').isString(),
   body('date').isISO8601(),
   updateEventWithId
 );

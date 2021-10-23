@@ -6,7 +6,7 @@ let res = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     date: new Date("2021-10-21T16:00:00Z"),
-    location: { latitude: 51.5073219, longitude: -0.1276474 },
+    address: "20 Stirling Rd, St. Leonards-On-Sea, TN38 9NP, UK",
   }),
   db.events.insert({
     organizer: "Organizer 2",
@@ -14,7 +14,7 @@ let res = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     date: new Date("2021-10-25T21:00:00Z"),
-    location: { latitude: 52.5170365, longitude: 13.3888599 },
+    address: "19 Primrose Close, Spennymoor, DL16 7YE, UK",
   }),
   db.events.insert({
     organizer: "Organizer 3",
@@ -22,7 +22,7 @@ let res = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     date: new Date("2021-10-28T18:00:00Z"),
-    location: { latitude: 40.4167047, longitude: -3.7035825 },
+    address: "69 The Exchange, High Rd, Ilford, IG1 1AS, UK",
   }),
 ];
 

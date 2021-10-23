@@ -3,9 +3,6 @@ export interface AppEvent {
   title: string;
   description: string;
   organizer: string;
-  location: {
-    latitude: number;
-    longitude: number;
-  };
+  address: string;
   date: Date;
 }

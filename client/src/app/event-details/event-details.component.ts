@@ -8,6 +8,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { take } from 'rxjs/operators';
 
 import { AppEvent } from '../typings';
+import { EventsService } from '../events.service';
 
 @Component({
   selector: 'app-event-details',
@@ -21,22 +22,25 @@ export class EventDetailsComponent implements OnInit {
   title!: string;
   description!: string;
   organizer!: string;
-  location!: object;
+  address!: string;
   date!: Date;
 
   form!: FormGroup;
+  formInitialValue!: object;
+  formIsChanged: Boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<EventDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public eventData: AppEvent,
     public fb: FormBuilder,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private eventsService: EventsService
   ) {
     this.id = eventData.id;
     this.title = eventData.title;
     this.description = eventData.description;
     this.organizer = eventData.organizer;
-    this.location = eventData.location;
+    this.address = eventData.address;
     this.date = eventData.date;
   }
 
@@ -50,14 +54,35 @@ export class EventDetailsComponent implements OnInit {
       organizer: [this.organizer, [Validators.required]],
       description: [this.description],
       date: [''],
+      address: [this.address],
     });
 
     const dateString = this.date.toString().substring(0, 16);
     this.setFormDate(dateString);
+
+    this.formInitialValue = this.form.value;
+
+    this.form.valueChanges.subscribe((value) => {
+      this.formIsChanged = JSON.stringify(this.formInitialValue) !== JSON.stringify(value);
+    });
   }
 
   submitForm() {
-    console.log(this.form.value);
+    if (this.formIsChanged) {
+      this.eventsService.updateEventWithId(this.id, this.form.value).subscribe((response) => {
+        const result = {
+          id: response.id,
+          title: response.title,
+          description: response.description,
+          organizer: response.organizer,
+          address: response.address,
+          date: response.date,
+        };
+        this.dialogRef.close(result);
+      });
+    } else {
+      this.dialogRef.close();
+    }
   }
 
   formatDate(event: MatDatepickerInputEvent<any, any>) {
@@ -93,8 +118,8 @@ export class EventDetailsEntryComponent {
     const dialogRef = this.dialog.open(EventDetailsComponent, {
       data: eventData,
     });
-    dialogRef.afterClosed().subscribe((result) => {
-      this.router.navigate(['../'], { relativeTo: this.route });
+    dialogRef.afterClosed().subscribe((result: AppEvent) => {
+      this.router.navigate(['../'], { relativeTo: this.route, state: result });
     });
   }
 }
